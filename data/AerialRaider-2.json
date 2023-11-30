@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": "Ensure the integrity of the token wrapping and unwrapping processes in the Curve2PoolAdapter contract",
+  "issueId": 2,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/2"
+}
