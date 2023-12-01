@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": "Ensuring that during any doInteraction or doMultipleInteractions call, the Ocean contract accurately tracks and updates the balances of the tokens involved",
+  "issueId": 12,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/12"
+}
