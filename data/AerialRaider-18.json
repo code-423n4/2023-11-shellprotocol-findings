@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": "Ensuring that calls to the Ocean contract do not cause it to mint a token without first calling the contract used to calculate its token ID",
+  "issueId": 18,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/18"
+}
