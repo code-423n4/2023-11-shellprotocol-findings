@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "eeshenggoh",
+  "risk": "3",
+  "title": "Ether stuck in Ocean contract due to missing withdraw function",
+  "issueId": 24,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/24"
+}
