@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xHelium",
+  "risk": "3",
+  "title": "```CurveTricryptoAdapter.primitiveOutputAmount()``` may return ```outputAmount``` less than ```minimumOutputAmount``` and the tx will still suceed",
+  "issueId": 26,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/26"
+}
