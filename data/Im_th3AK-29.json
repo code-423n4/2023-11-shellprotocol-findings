@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Im_th3AK",
+  "risk": "2",
+  "title": " Using `ERC721::_mint()` can be dangerous",
+  "issueId": 29,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/29"
+}
