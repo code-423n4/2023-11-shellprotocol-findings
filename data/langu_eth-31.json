@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "langu_eth",
+  "risk": "2",
+  "title": "When the inputAmount is less than IOceanInteractions(ocean).unwrapFeeDivisor(), then the unwrapFee is 0",
+  "issueId": 31,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/31"
+}
