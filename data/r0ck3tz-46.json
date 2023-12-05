@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "r0ck3tz",
+  "risk": "3",
+  "title": "All deposited WETH and phantom tokens can be stolen",
+  "issueId": 46,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/46"
+}
