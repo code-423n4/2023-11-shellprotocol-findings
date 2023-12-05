@@ -59,7 +59,7 @@ The codebase in scope is divided into two major modules:
 
 - **Centralization** exists but not a lot, certain function are limited to the Ocean, Owner and ApprovedForwarders. It goes without saying that actions from these parties have impacts on the protocol. And they're vulnerable points of failure. One odd decision made by the team was to split the user and User `ApprovedForwarder` functions into two when they essentially do the same thing (See Oceans.sol [L210](https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/ocean/Ocean.sol#L210), [L256](https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/ocean/Ocean.sol#L256), [L229](https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/ocean/Ocean.sol#L229), [L281](https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/ocean/Ocean.sol#L281)). We think the team can find a work around for this.
     
-- **ThirdParty dependencies** is also a point of entry of attack to the protocol. The contract imports OZ contracts version 4.8.1 which has a number of known issues, this should be updated, as these vulnerabilities in these contracts are likely to have an effect in the system. Also, while not in scope, the OZ Ownable was used, which is not as safe as its counterpart Ownable2Step. Recommend updating to the latter instead.
+- **ThirdParty dependencies** is also a point of entry of attack to the protocol. The contract imports OZ contracts version 4.8.1 which has a number of known issues, this should be updated, as these vulnerabilities in these contracts are likely to have an effect in the system. Also, while not in scope, the OZ Ownable was used, which is not as safe as its counterpart Ownable2Step. Recommend updating to the latter instead. The curve adapters are major points of risks to the protocol. The `CurveTricryptoAdapter` contract is the adapter for the Arbirtrum Tricrypto pool, which Curve Finance has deemed [vulnerable](https://twitter.com/CurveFinance/status/1685933800088391680) and advised users to not use. 
 
 - **Smart Contract vulnerabilities** also pose a significant threat to the security and integrity of decentralized protocols. These vulnerabilities can manifest as critical security flaws, enabling malicious actors to exploit the protocol and steal funds or manipulate the system. Logical inconsistencies in the code can also lead to unexpected behavior and unintended consequences, potentially causing financial losses or compromising the protocol's overall functionality. Constant sytem upgrades and audits are recommended, to keep the protocol up to date with latest technologies.
 
@@ -90,6 +90,8 @@ The codebase in scope is divided into two major modules:
 - [Ocean White Paper](https://shellprotocol.io/static/Ocean_-_Shell_v2_Part_2.pdf)
 
 - [Previous C4 Audit Report](https://code4rena.com/reports/2023-08-shell)
+
+
 
 
 ### Time spent:
