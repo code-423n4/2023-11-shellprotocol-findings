@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "iamandreiski",
+  "risk": "2",
+  "title": "Curve2Pool and CurveTricrypto Adapters will malfunction as they can't support USDT due to incorrect approvals set",
+  "issueId": 43,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/43"
+}
