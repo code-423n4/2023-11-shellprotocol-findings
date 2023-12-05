@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "RaoulSchaffranek",
+  "risk": "2",
+  "title": "The Ocean is vulnerable to event-reordering re-entrancy attacks",
+  "issueId": 37,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/37"
+}
