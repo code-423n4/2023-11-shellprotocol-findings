@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": "ensure that the computeOutputAmount function in the OceanAdapter contract is secure, robust, and handles errors or unexpected behaviors effectively",
+  "issueId": 47,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/47"
+}
