@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "oakcobalt",
+  "risk": "2",
+  "title": "CurveTricryptoAdapter will revert when handling Weth deposit or swap, due to incorrectly equating ether with Weth when computing ocean Id, any multi-interaction flow requiring Weth as an intermediary token will revert",
+  "issueId": 59,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/59"
+}
