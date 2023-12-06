@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Lack of protection against volatile token types.",
+  "issueId": 71,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/71"
+}
