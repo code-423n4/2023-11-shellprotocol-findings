@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Hajime",
+  "risk": "2",
+  "title": " ICurve2Pool(primitive).exchange swaps have no slippage parameters",
+  "issueId": 87,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/87"
+}
