@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Passing unexpected asset pairs may lead to unvalidated code execution.",
+  "issueId": 68,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/68"
+}
