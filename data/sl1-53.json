@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "sl1",
+  "risk": "2",
+  "title": "OceanAdapter interface does not support ERC721 tokens",
+  "issueId": 53,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/53"
+}
