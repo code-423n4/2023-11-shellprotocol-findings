@@ -113,6 +113,65 @@ As seen above, when removing liquidity, Curve2PoolAdapter's `primitive_` balance
 Because in this case `primitive_` is the same as Lp token address, consider in Curve2PoolAdapter.sol `_approveToken()` add a bypass such that only when `tokenAddress !=primitive`,`IERC20Metadata(tokenAddress).approve(primitive, type(uint256).max) will be called. 
 
 
+### Low-03: `_convertDecimals()` are declared in both OceanAdapter.sol and Ocean.sol with minor differences, consider refactoring this function as part of a library contract (Note: Not included in bot report)
+In Ocean.sol and OceanAdapter.sol `_convertDecimals()` are declared twice with almost identical implementations except that in Ocean.sol, `truncatedAmount` is assigned and returned, while in OceanAdapter.sol `truncatedAmount` is not handled and returned.
 
+```solidity
+//src/adapters/OceanAdapter.sol
+    function _convertDecimals(
+        uint8 decimalsFrom,
+        uint8 decimalsTo,
+        uint256 amountToConvert
+    )
+        internal
+        pure
+        returns (uint256 convertedAmount)
+    {
+        if (decimalsFrom == decimalsTo) {
+            // no shift
+            convertedAmount = amountToConvert;
+        } else if (decimalsFrom < decimalsTo) {
+            // Decimal shift left (add precision)
+            uint256 shift = 10 ** (uint256(decimalsTo - decimalsFrom));
+            convertedAmount = amountToConvert * shift;
+        } else {
+            // Decimal shift right (remove precision) -> truncation
+            uint256 shift = 10 ** (uint256(decimalsFrom - decimalsTo));
+            convertedAmount = amountToConvert / shift;
+        }
+    }
+```
+(https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/OceanAdapter.sol#L138-L159)
+```solidity
+//src/ocean/Ocean.sol
+    function _convertDecimals(
+        uint8 decimalsFrom,
+        uint8 decimalsTo,
+        uint256 amountToConvert
+    )
+        internal
+        pure
+        returns (uint256 convertedAmount, uint256 truncatedAmount)
+    {
+        if (decimalsFrom == decimalsTo) {
+            // no shift
+            convertedAmount = amountToConvert;
+            truncatedAmount = 0;
+        } else if (decimalsFrom < decimalsTo) {
+            // Decimal shift left (add precision)
+            uint256 shift = 10 ** (uint256(decimalsTo - decimalsFrom));
+            convertedAmount = amountToConvert * shift;
+            truncatedAmount = 0;
+        } else {
+            // Decimal shift right (remove precision) -> truncation
+            uint256 shift = 10 ** (uint256(decimalsFrom - decimalsTo));
+            convertedAmount = amountToConvert / shift;
+            truncatedAmount = amountToConvert % shift;
+        }
+    }
+```
+(https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/ocean/Ocean.sol#L1123-L1145)
 
+**Recommendation:**
+Consider moving decimals conversion into a library contract. In OceanAdapter.sol, the same `_convertDecimals()` from Ocean.sol can still be used. 
 
