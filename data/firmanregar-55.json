@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "firmanregar",
+  "risk": "3",
+  "title": "Unprotected call to a function sending eth to an arbitrary address",
+  "issueId": 55,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/55"
+}
