@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Slippage check after decimal conversion enables attackers to manipulate output, misleading contract on actual swap rates.",
+  "issueId": 91,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/91"
+}
