@@ -105,3 +105,35 @@ However, there is a robustness issue currently in that if any single external ca
 
 To fix this, suggest to wrap each interaction's external token transfer call with try-catch. The benefit is that a failure in one external token contract won't necessarily doom the processing of all the other interactions. We compartmentalize the risk to each individual external call. This follows a good practice of error isolation and atomicity in code design.
 
+6.
+
+```solidity
+  function _computeOutputAmount(
+        address primitive,
+        uint256 inputToken,
+        uint256 outputToken,
+        uint256 inputAmount,
+        address userAddress,
+        bytes32 metadata
+    )
+        internal
+        returns (uint256 outputAmount)
+    {
+        // mint before making a external call to the primitive to integrate with external protocol primitive adapters
+        _increaseBalanceOfPrimitive(primitive, inputToken, inputAmount);
+
+        outputAmount =
+            IOceanPrimitive(primitive).computeOutputAmount(inputToken, outputToken, inputAmount, userAddress, metadata);
+
+        _decreaseBalanceOfPrimitive(primitive, outputToken, outputAmount);
+
+        emit ComputeOutputAmount(primitive, inputToken, outputToken, inputAmount, outputAmount, userAddress);
+    }
+```
+
+The variable address primitive here is misleading, it refers to adapter. Primitive could not have computeOutputAmount function. 
+
+See Ocean#computeOutputAmount
+
+To fix this, refactor primitive to adapter
+
