@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "The decimal conversion in the `_erc20Wrap` function lacks validation on the shift calculation and the absence of overflow protection on the decimal conversion could lead to an integer overflow, allowing attackers to inflate their wrapped token balance.",
+  "issueId": 76,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/76"
+}
