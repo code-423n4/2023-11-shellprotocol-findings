@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Lack of validation on `msg.value` in `doInteractio`n enables artificial `WRAPPED_ETHER_ID` inflation, manipulating balances.",
+  "issueId": 85,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/85"
+}
