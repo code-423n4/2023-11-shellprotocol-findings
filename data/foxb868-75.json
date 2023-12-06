@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "lack of proper validation in the `_calculateOceanId` function, where keccak256 is used to generate token IDs.",
+  "issueId": 75,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/75"
+}
