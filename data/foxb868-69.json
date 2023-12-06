@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Manipulating `primitiveOutputAmount` in OceanAdapter could lead to inflated balances, double spending, and accounting issues.",
+  "issueId": 69,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/69"
+}
