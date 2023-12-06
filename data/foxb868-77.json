@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": " owner's ability to transfer arbitrary token balances, allowing them to potentially steal tokens.",
+  "issueId": 77,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/77"
+}
