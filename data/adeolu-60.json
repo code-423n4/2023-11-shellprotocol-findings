@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "adeolu",
+  "risk": "2",
+  "title": "risk of signature replay attack because block.chainID is set in constructor at deployment. ",
+  "issueId": 60,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/60"
+}
