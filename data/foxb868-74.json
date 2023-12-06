@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Order of balance updates in the `_executeInteraction()` function, can lead to incorrect accounting between user and primitive balances when interactions fail or revert after input tokens are minted.",
+  "issueId": 74,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/74"
+}
