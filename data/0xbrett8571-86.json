@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Flash loan-type attacks enabled by changes in primitive balance updates order.",
+  "issueId": 86,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/86"
+}
