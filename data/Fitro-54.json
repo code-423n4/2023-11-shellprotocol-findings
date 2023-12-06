@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Fitro",
+  "risk": "2",
+  "title": "An attacker can deploy a malicious primitive and mint tokens with 0 inputAmount and steals oceans balance",
+  "issueId": 54,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/54"
+}
