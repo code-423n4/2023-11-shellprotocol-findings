@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "foxb868",
+  "risk": "2",
+  "title": "Unchecked array iteration enables unauthorized interactions, risking fund drainage and integrity violations.",
+  "issueId": 65,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/65"
+}
