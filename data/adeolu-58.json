@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "adeolu",
+  "risk": "2",
+  "title": "OceanAdapter, CurveTricryptoAdapter and Curve2PoolAdapter accept erc1155 token transfers but break the ERC-1155 Token Receiver specification in ERC-1155.",
+  "issueId": 58,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/58"
+}
