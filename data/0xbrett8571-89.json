@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "New OceanAdapter and Curve2PoolAdapter may enable front-running attacks, stealing user funds and manipulating swap rates.",
+  "issueId": 89,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/89"
+}
