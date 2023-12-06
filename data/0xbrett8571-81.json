@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Race condition in split balance updates invites reentrancy, leading to corruption.",
+  "issueId": 81,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/81"
+}
