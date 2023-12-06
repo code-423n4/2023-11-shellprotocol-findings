@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xbrett8571",
+  "risk": "2",
+  "title": "Primitive revert post-balance change leads to corrupted token supply, potential siphoning.",
+  "issueId": 94,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/94"
+}
