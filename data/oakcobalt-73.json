@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "oakcobalt",
+  "risk": "2",
+  "title": "Ocean's _computeInputAmount() is vulnerable to DOS when OceanAdaptor is called, due to the order in which the primitive's balance is decreased. ",
+  "issueId": 73,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/73"
+}
