@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": "Ensuring that the amount of Ether being wrapped or unwrapped is correctly reflected in the msg.value",
+  "issueId": 144,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/144"
+}
