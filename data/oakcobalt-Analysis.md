@@ -63,6 +63,14 @@ Valid interaction order B: wrapErc20() → computeOutputAmount(). This is the on
 
 In Ocean.sol, fees are minted for various wrapped tokens to owner(). However, this information can only be tracked and calculated off-chain through event listing of minting, consider on-chain implementation for queries on all tokens owned by Ocean owner.
 
+### **`computeInputAmount` doesn't need to be disabled in OceanAdapter.sol**
+
+In OceanAdapter.sol, the abstract generalized adapter, `computeInputAmount` is implemented with a direct `revert()`. Although this `revert()` can be overwritten in deriving contracts,  this is still unnecessary and potentially misleading.
+
+(1) OceanAdapter.sol is an abstract contract and can be overwritten. Consider refactoring `revert()` implementation in Curve2PoolAdapter and CurveTricryptoAdapter. The abstract contract is better remained as a neutral contract unbiased of any specific swapping or liquidity management methods which might differ based on external protocols.
+
+(2) `computeIntputAmount` can still be supported for ocean adapters if the external liquidity provides a compatible method. However, the issue is Ocean.sol doesn't implement `_computeInputAmount` interaction correctly. In Ocean.sol `_computeInputAmount()`, the order in which the primitive's balance of output token is decreased before a call to the primitive's `computInputAmount()` is problematic for any ocean adapters. Ocean.sol `computInputAmount()`'s implementation needs to be revised to allow ocean adapters' `computeInputAmount` to properly work. See my H/M submission for details.
+
 ### **Curve2PoolAdapter will not work with all Curve 2Pools:**
 
 Some curve 2 pools have a separate LpToken contract which is different from the liquidity pool contract. These pools will not work with Curve2PoolAdapter. See my QA submission for details.
@@ -95,6 +103,8 @@ This requires OceanAdapter to support receiving ERC721 tokens. Currently, OceanA
 **(4) ERC721 liquidity position removing:**
 
 See reason for (3).
+
+
 
 ### Time spent:
 30 hours
