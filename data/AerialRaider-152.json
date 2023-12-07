@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "AerialRaider",
+  "risk": "2",
+  "title": " Adding  checks within the _executeInteraction function to enforce that the specifiedAmount is always set to 1",
+  "issueId": 152,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/152"
+}
