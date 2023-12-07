@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "Malformed token may disrupt wrapping, break user balances, compromise accounting, and exploit protocol assumptions.",
+  "issueId": 116,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/116"
+}
