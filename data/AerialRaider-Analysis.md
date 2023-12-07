@@ -38,5 +38,7 @@ Ensured the robustness of token wrapping and unwrapping processes in the Curve2P
 
 These findings collectively enhance the security, functionality, and reliability of the Shell Protocol, addressing medium-risk vulnerabilities and ensuring a more robust and secure DeFi platform.
 
+
+
 ### Time spent:
-26 hours
+28 hours
