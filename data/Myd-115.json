@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": " Reentrancy in _computeOutputAmount allows primitive to manipulate balances, risking fund drainage or insolvency.",
+  "issueId": 115,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/115"
+}
