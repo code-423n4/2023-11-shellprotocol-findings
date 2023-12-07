@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "Unfair dust accumulation in ERC20 wrapping if token's manipulated decimals, leading to gradual user fund drain.",
+  "issueId": 113,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/113"
+}
