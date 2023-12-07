@@ -1,22 +1,38 @@
-Audit of the Shell Protocol has identified several key areas that require attention to enhance security and functionality. Here's a summary of the findings:
+The audit findings for the Shell Protocol's Ocean contract reveal several areas of medium risk that require attention to enhance security and reliability. Here's a summary:
 
-Minting Control in Ocean Contract: 
-It's essential to ensure that the Ocean contract does not mint any tokens without first calling the contract used to calculate its token ID. This control mechanism prevents unauthorized token creation and ensures token IDs are valid and correctly calculated. Risk Level: Medium.
+Loss of Funds Prevention:
+Risk Level: Medium
+Finding: Implement checks to prevent fund loss, particularly in scenarios involving rounding errors or incorrect calculations.
+Security of computeOutputAmount Function:
 
-Handling of Rebasing and Fee-on-Transfer Tokens: 
-The interaction of rebasing tokens and fee-on-transfer tokens with the Ocean contract poses challenges. The contract needs to address these types of tokens' unique behaviors to ensure accurate balance tracking and transaction processing. Risk Level: Medium.
+Risk Level: Medium
+Finding: Secure the computeOutputAmount function in the OceanAdapter contract against errors or unexpected behaviors.
+Token ID Calculation Check:
 
-Balance Tracking in Interactions: 
-During doInteraction or doMultipleInteractions calls, it's critical for the Ocean contract to accurately track and update the balances of the tokens involved. This ensures the integrity of transactions and maintains correct accounting within the contract. Risk Level: Medium.
+Risk Level: Medium
+Finding: Ensure the Ocean contract doesn't mint tokens without first calling the contract used for calculating their token ID.
+Handling Rebasing and Fee-on-Transfer Tokens:
 
-Fee Allocation to Ocean Owner: 
-Fees generated within the Ocean contract should be correctly credited to the Ocean owner's ERC-1155 balance. This involves ensuring the fee mechanisms and calculations are precise and that the fees are properly allocated and recorded. Risk Level: Medium.
+Risk Level: Medium
+Finding: Address challenges arising from interactions between rebasing tokens or fee-on-transfer tokens and the Ocean contract.
+Balances Tracking in Interactions:
 
-Validations in checksprimitiveOutputAmount Function: 
-Implementing rigorous validations in the checksprimitiveOutputAmount function will enhance security and reliability. This enhancement will prevent potential errors or vulnerabilities in the output amount computation process. Risk Level: Medium.
+Risk Level: Medium
+Finding: Ensure accurate tracking and updating of token balances during doInteraction or doMultipleInteractions calls.
+Fee Crediting to Ocean Owner:
 
-Integrity of Token Wrapping/Unwrapping in Curve2PoolAdapter: 
-Ensuring the integrity of the token wrapping and unwrapping processes in the Curve2PoolAdapter contract is crucial. This involves verifying that these processes are secure, error-free, and function as intended, especially concerning token conversions and liquidity pool interactions. Risk Level: Medium.
+Risk Level: Medium
+Finding: Guarantee that fees are correctly credited to the Ocean owner's ERC-1155 balance within the Ocean contract.
+Validations in primitiveOutputAmount Function:
+
+Risk Level: Medium
+Finding: Incorporate stringent validations in the primitiveOutputAmount function for enhanced security and reliability.
+Integrity of Wrapping/Unwrapping in Curve2PoolAdapter:
+
+Risk Level: Medium
+Finding: Ensure robustness and security in the token wrapping and unwrapping processes within the Curve2PoolAdapter contract.
+
+Overall, these findings point towards a need for stringent checks, better error handling, and enhanced validation procedures to bolster the security and functionality of the Shell Protocol's Ocean contract, particularly in aspects related to token interactions, fee management, and the integrity of crucial functions.
 
 ### Time spent:
-20 hours
+26 hours
