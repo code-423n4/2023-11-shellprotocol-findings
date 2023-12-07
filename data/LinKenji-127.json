@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "LinKenji",
+  "risk": "2",
+  "title": "Incorrect accounting across nested `doMultipleInteractions` calls.",
+  "issueId": 127,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/127"
+}
