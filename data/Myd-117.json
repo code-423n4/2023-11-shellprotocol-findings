@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "Invalid data in token wrap/unwrap calls impacts ledger integrity, availability, and invites potential griefing attacks.",
+  "issueId": 117,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/117"
+}
