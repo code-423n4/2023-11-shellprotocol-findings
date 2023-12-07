@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": " Potential significant losses if computeOutputAmount fails after transferring tokens, leading to trapped input tokens.",
+  "issueId": 111,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/111"
+}
