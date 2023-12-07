@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": "If primitive calls back into Ocean before output token burn, balance manipulation possible.",
+  "issueId": 112,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/112"
+}
