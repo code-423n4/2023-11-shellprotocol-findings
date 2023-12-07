@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "LinKenji",
+  "risk": "2",
+  "title": "Balance inconsistencies risk loss. Malicious adapter interferes, breaks invariants, leading to potential repetitive attacks and asset loss.",
+  "issueId": 123,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/123"
+}
