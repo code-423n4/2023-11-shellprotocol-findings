@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "ziyou-",
+  "risk": "2",
+  "title": "The \"unwrapFeeDivisor\" parameter in the \"changeUnwrapFee\" function lacks a maximum value limit.",
+  "issueId": 122,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/122"
+}
