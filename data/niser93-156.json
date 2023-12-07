@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "niser93",
+  "risk": "3",
+  "title": "Truncating decimals in `_convertDecimals()`  causes ERC20 token value loss",
+  "issueId": 156,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/156"
+}
