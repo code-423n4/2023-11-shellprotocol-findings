@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "niser93",
+  "risk": "3",
+  "title": "Revert statement in `` Curve2PoolAdapter.primitiveOutputAmount()`  could not work correctly, leading to a multiple invalid interaction ",
+  "issueId": 158,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/158"
+}
