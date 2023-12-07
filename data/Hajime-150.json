@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Hajime",
+  "risk": "3",
+  "title": "CurveTricryptoAdapter/Curve2PoolAdapter.primitiveOutputAmount() removes liquidity without any slippage protection",
+  "issueId": 150,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/150"
+}
