@@ -1,4 +1,4 @@
-### Low-01: Ocean.sol `_doMultipleInteractions()` doesn't check for duplicated `ids` input array
+### Low-01: Ocean.sol `_doMultipleInteractions()` doesn't check for duplicated `ids` input array (Note: not submitted in bot report)
 
 In Ocean.sol `_doMultipleInteractions()` both the interactions array(`Interaction[] calldata`) and ocean Ids(`uint256[] calldata`) array required for the interactions are passed by callers. Note that interactions array and ids array can be of different lengths and the interactions array can contain duplicated interaction (e.g. adding the same liquidity twice, etc), however, Ids array shouldn't contain duplicated elements. 
 
@@ -174,4 +174,95 @@ In Ocean.sol and OceanAdapter.sol `_convertDecimals()` are declared twice with a
 
 **Recommendation:**
 Consider moving decimals conversion into a library contract. In OceanAdapter.sol, the same `_convertDecimals()` from Ocean.sol can still be used. 
+
+### NC-01 Some functions in abstract OceanAdapter can be refactored
+OceanAdapter.sol is an abstract contract intended to be overwritten by child contract with specific implementations suited for corresponding external liquidity pools. For example, Curve2PoolAdapter.sol overwrites OceanAdapter.sol to wrap curve usdc-usdt pool. In this case, OceanAdapter should avoid specifying implementation that is not general and refactor these into the child contract.
+
+One example is `computeInputAmount()` in OceanAdapter.sol. Current `computeInputAmount()` has `revert()` that could be implemented in Child contracts instead.
+
+```solidity
+//src/adapters/OceanAdapter.sol
+    function computeInputAmount(
+        uint256 inputToken,
+        uint256 outputToken,
+        uint256 outputAmount,
+        address userAddress,
+        bytes32 maximumInputAmount
+    )
+       external
+        override
+        onlyOcean
+        returns (uint256 inputAmount)
+    {
+        revert();
+    }
+```
+(https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/OceanAdapter.sol#L93)
+
+**Recommendations:**
+Consider moving `revert()` to be implemented in the child contract.
+
+### NC-02 Curve2PoolAdapter.sol doesn't work with all Curve2Pools currently implemented by Curve
+Based on the code comment, the current implementation of Curve2PoolAdapter.sol is designed for curve usdc-usdt pool. However, Curve2PoolAdapter.sol will not work with current Curve2Pools that use a LpToken contract separate from the pool contract.
+
+For example, current implementation will not work with Curve Crv-Eth pool. See [here](https://etherscan.io/address/0x8301ae4fc9c624d1d396cbdaa1ed877821d7c511#code). Curve Crv-Eth pool uses a separate LpToken contract -[Curve Crv-Eth token](https://etherscan.io/address/0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d).
+
+```vyper
+//Curve Crv-Eth pool
+# These addresses are replaced by the deployer
+//@audit in Crv-Eth pool, a separate hardcoded LpToken address is defined, different from pool address itself.
+token: constant(address) = 0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d
+coins: constant(address[N_COINS]) = [
+    0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2,
+    0xD533a949740bb3306d119CC777fa900bA034cd52]
+```
+(https://etherscan.io/address/0x8301ae4fc9c624d1d396cbdaa1ed877821d7c511#code)
+
+```viper
+//Curve Crv-Eth LpToken
+"""
+@title Curve LP Token
+@author Curve.Fi
+@notice Base implementation for an LP token provided for
+        supplying liquidity to `StableSwap`
+@dev Follows the ERC-20 token standard as defined at
+     https://eips.ethereum.org/EIPS/eip-20
+"""
+```
+(https://etherscan.io/address/0xEd4064f376cB8d68F770FB1Ff088a3d0F3FF5c4d#code)
+
+In this case, Curve2PoolAdapter.sol will not work because it only defines xToken, yToken and primitive as input or output token, when it should be xToken, yToken and LpToken as input or output token.
+
+```solidity
+//src/adapters/Curve2PoolAdapter.sol
+    constructor(address ocean_, address primitive_) OceanAdapter(ocean_, primitive_) {
+...
+      address xTokenAddress = ICurve2Pool(primitive).coins(0);
+        xToken = _calculateOceanId(xTokenAddress, 0);
+        underlying[xToken] = xTokenAddress;
+        decimals[xToken] = IERC20Metadata(xTokenAddress).decimals();
+        _approveToken(xTokenAddress);
+
+...
+        address yTokenAddress = ICurve2Pool(primitive).coins(1);
+        yToken = _calculateOceanId(yTokenAddress, 0);
+        indexOf[yToken] = int128(1);
+        underlying[yToken] = yTokenAddress;
+        decimals[yToken] = IERC20Metadata(yTokenAddress).decimals();
+        _approveToken(yTokenAddress);
+...
+        //@audit this is incorrect when curve2pool use a separate lpToken contract different from primitive contract such as crv-eth pool.
+|>      lpTokenId = _calculateOceanId(primitive_, 0);
+        underlying[lpTokenId] = primitive_;
+        //@audit this will also revert due to primitive_ has no decimal methods
+|>      decimals[lpTokenId] = IERC20Metadata(primitive_).decimals();
+        _approveToken(primitive_);
+```
+(https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/Curve2PoolAdapter.sol#L91-L94)
+
+In addition, development will fail due to primitive contract has no decimal method since it's not intended to be ERC20.
+
+**Recommendations:**
+(1) Either develop a different version of Curve2PoolAdapter that work with Curve pool that has a separate LpToken;
+(2) Or revise current Curve2PoolAdapter to always use xToken, yToken and LpToken. And in the constructor, bypass when calling `.token()` method on curve pool fails which indicate it doesn't use a separate LPToken.
 
