@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "oakcobalt",
+  "risk": "3",
+  "title": "Malicious primitive can distort Ocean's accounting of registered tokens and exploit other natively registered liquidity pools while profit from the process",
+  "issueId": 161,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/161"
+}
