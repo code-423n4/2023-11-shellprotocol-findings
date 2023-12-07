@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Myd",
+  "risk": "2",
+  "title": " Try-catch only reverts decimals call, allowing attackers to inflate wrapped token balances on Ocean.",
+  "issueId": 106,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/106"
+}
