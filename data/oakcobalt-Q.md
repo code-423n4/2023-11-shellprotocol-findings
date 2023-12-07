@@ -2,7 +2,7 @@
 
 In Ocean.sol `_doMultipleInteractions()` both the interactions array(`Interaction[] calldata`) and ocean Ids(`uint256[] calldata`) array required for the interactions are passed by callers. Note that interactions array and ids array can be of different lengths and the interactions array can contain duplicated interaction (e.g. adding the same liquidity twice, etc), however, Ids array shouldn't contain duplicated elements. 
 
-When Ids array contain the same OceanId twice, only the first index of the OceanId in the array will be correctly modified, the other indexes of duplicated OceanId will be left at default 0 value. The impact is every time all the indexes will be looped through in a for-loop `_findIndexOfTokenId()` from BalanceDelta.sol, this will increase unnecessary number of iterations, every time a duplicated id is passed to `_doMultipleInteractions()`. The more ocean ids involved in the transaction, the more wasteful iterations of the duplicated ids it will generate.
+When Ids array contain the same OceanId twice, only the first index of the OceanId in the array will be correctly modified, the other indexes of duplicated OceanId will be left at default 0 value. The impact is every time all the indexes will be looped through in a for-loop `_findIndexOfTokenId()`, `_copyDeltasToMintAndBurnArrays()` from BalanceDelta.sol, this will increase unnecessary number of iterations, every time a duplicated id is passed to `_doMultipleInteractions()`. The more ocean ids involved in the transaction, the more wasteful iterations of the duplicated ids it will generate.
 
 ```solidity
 //src/ocean/Ocean.sol
