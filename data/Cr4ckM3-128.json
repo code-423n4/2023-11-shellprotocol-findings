@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Cr4ckM3",
+  "risk": "2",
+  "title": "Amount truncated in `_convertDecimals` of `OceanAdapter`",
+  "issueId": 128,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/128"
+}
