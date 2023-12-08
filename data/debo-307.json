@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "debo",
+  "risk": "3",
+  "title": "[H-02] The Ocean contract and the onERC721Received function is vulnerable to read-only re-entrancy",
+  "issueId": 307,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/307"
+}
