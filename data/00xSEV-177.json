@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "00xSEV",
+  "risk": "2",
+  "title": "Rounding logic leads to big fees on tokens with low decimals",
+  "issueId": 177,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/177"
+}
