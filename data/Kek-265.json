@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Kek",
+  "risk": "2",
+  "title": " `OceanAdapter` impelements `onERC1155Received()` but not `onERC1155BatchReceived()` or `supportsInterface()`",
+  "issueId": 265,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/265"
+}
