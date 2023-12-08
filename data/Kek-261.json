@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Kek",
+  "risk": "2",
+  "title": "`Ocean` cannot `_mintBatch()` as `onERC1155BatchRecieved()` not implemeneted on the `Ocean` contract when batch transferring to itself",
+  "issueId": 261,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/261"
+}
