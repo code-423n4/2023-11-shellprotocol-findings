@@ -93,7 +93,7 @@ Just delete this line of code in `function _erc20Wrap`.
 ```
             _grantFeeToOcean(outputToken, dust);
 ```
-### solution B 
+### solution B （recommend）
 Delete the `function _determineTransferAmount`,and rewrite `function _erc20Wrap`: 
 ```
     function _erc20Wrap(address tokenAddress, uint256 amount, address userAddress, uint256 outputToken) private {
