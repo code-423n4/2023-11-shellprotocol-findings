@@ -146,3 +146,16 @@ IERC1155(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId, amo
 ```
 
 In the provided snippet, an empty byte string is passed since no data is needed. But having the bytes parameter creates the flexibility to add data if required later for that token and dapp system.
+
+8. Bad variable names
+```
+        int128 indexOfInputAmount = indexOf[inputToken];
+        int128 indexOfOutputAmount = indexOf[outputToken];
+```
+should be 
+```
+        int128 indexOfInputToken = indexOf[inputToken];
+        int128 indexOfOutputToken = indexOf[outputToken];
+```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/Curve2PoolAdapter.sol#L159-L160
+https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/CurveTricryptoAdapter.sol#L195-L196
