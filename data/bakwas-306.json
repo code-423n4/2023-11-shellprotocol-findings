@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "bakwas",
+  "risk": "2",
+  "title": "Lack of Validation and Potential Overflow in _fetchInteractionId Function",
+  "issueId": 306,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/306"
+}
