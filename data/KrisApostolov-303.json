@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "KrisApostolov",
+  "risk": "2",
+  "title": "Withdraws will be bricked if the curve pool gets killed",
+  "issueId": 303,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/303"
+}
