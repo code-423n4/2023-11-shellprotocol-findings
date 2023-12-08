@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "0xDemon",
+  "risk": "2",
+  "title": "Lack of error handling for external calls can lead to unexpected behavior",
+  "issueId": 211,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/211"
+}
