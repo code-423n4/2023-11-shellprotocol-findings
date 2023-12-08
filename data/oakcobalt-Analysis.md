@@ -61,7 +61,7 @@ Valid interaction order B: wrapErc20() → computeOutputAmount(). This is the on
 
 ### **No On-Chain Mechanism for Fee Redistribution:**
 
-In Ocean.sol, fees are minted for various wrapped tokens to owner(). However, this information can only be tracked and calculated off-chain through event listing of minting, consider on-chain implementation for queries on all tokens owned by Ocean owner.
+In Ocean.sol, fees are minted for various wrapped tokens to owner(). However, there is no on-chain method to list all token ids that have fees collected for the owner for easy batch distribution. Currently, this information can only be tracked through event listening of minting. Consider on-chain implementation for queries on all tokens owned by Ocean owner.
 
 ### **`computeInputAmount` doesn't need to be disabled in OceanAdapter.sol**
 
@@ -103,6 +103,8 @@ This requires OceanAdapter to support receiving ERC721 tokens. Currently, OceanA
 **(4) ERC721 liquidity position removing:**
 
 See reason for (3).
+
+
 
 
 
