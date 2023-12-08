@@ -1,8 +1,45 @@
 ### [Gas-01] Unnecessary Calculation
+In Ocean.sol `UnwrapFee` is calculated from function `_calculateUnwrapFee()` where it used `unwrapFeeDivisor` as divisor which set to `type(uint256).max` in constructor
+```solidity
+function _calculateUnwrapFee(uint256 unwrapAmount) private view returns (uint256 feeCharged) {
+        feeCharged = unwrapAmount / unwrapFeeDivisor; 
+    }
+```
+This `unwrapFeeDivisor` could further changed via function `changeUnwrapFee()`
+
+For Now As of my understanding `unwrapFeeDivisor = type(uint256).max` so that `feeCharged` will be `0` so there no unwrapping will taken while unwrapping `ERC20, ERC1155, ETH`
+
+But it costs more gas as in every case of unwrapping these mathematical calculation occurs
+- calculation of fee
+- substraction of fee from inputed amount
+- transfer of fee
+But we all know fee = 0 as for now
+
+Instead of doing all these thing we could simply set a `Flag for fee with uints`
+- When flag on go for fee calculation
 
 ```diff
+    function _erc1155Unwrap(
+        address tokenAddress,
+        uint256 tokenId,
+        uint256 amount,
+        address userAddress,
+        uint256 oceanId
+    )
+        private
+    {
+        if (tokenAddress == address(this)) revert NO_RECURSIVE_UNWRAPS();
+        uint256 feeCharged = _calculateUnwrapFee(amount); 
+        uint256 amountRemaining = amount - feeCharged; 
+        _grantFeeToOcean(oceanId, feeCharged);
+        IERC1155(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId, amountRemaining, "");
+        emit Erc1155Unwrap(tokenAddress, tokenId, amount, feeCharged, userAddress, oceanId); // @audit-issue wrong emits
+    }
 ```
 ```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L965
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L979
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L866
 ```
 
 ### [Gas-02] Could be initialized with `_ERC1155InteractionStatus` & `_ERC721InteractionStatus` Non-zero values
@@ -38,11 +75,23 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.so
 https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L405-L412
 ```
 
-### [Gas-04] Initialize with non-zero number
-
+### [Gas-04] OR in if-condition can be rewritten to two single if conditions
 ```diff
+        if (interactionType == InteractionType.WrapErc20 || interactionType == InteractionType.UnwrapErc20) {
+            specifiedToken = _calculateOceanId(externalContract, 0);
+        }
 ```
 ```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L709
+```
+```diff
+  else if (
+            interactionType == InteractionType.WrapErc721 || interactionType == InteractionType.WrapErc1155
+                || interactionType == InteractionType.UnwrapErc721 || interactionType == InteractionType.UnwrapErc1155
+        ) {
+```
+```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L712-L713
 ```
 
 ### [Gas-05] `_idLength = ids.length;` should written one step above so that gas for extra `ids.length` calculation could saved
@@ -234,5 +283,27 @@ truncatedAmount = amountToConvert % shift; // @audit G: Uncheck
 ```
 ```
 https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L1145
+```
+
+### [Gas-16] Unnecessary use of `_ERC721InteractionStatus` & `_ERC1155InteractionStatus` before and after respectively while transfering ERC721 & ERC1155 as there is no check(modifier or internal function) to validate this status.
+
+These uses only increases gas cost by writing to storage.
+
+```diff
+        _ERC1155InteractionStatus = INTERACTION; 
+        IERC1155(tokenAddress).safeTransferFrom(userAddress, address(this), tokenId, amount, "");
+        _ERC1155InteractionStatus = NOT_INTERACTION;
+        emit Erc1155Wrap(tokenAddress, tokenId, amount, userAddress, oceanId);
+```
+```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L930-L932
+```
+```diff
+        _ERC721InteractionStatus = INTERACTION; 
+        IERC721(tokenAddress).safeTransferFrom(userAddress, address(this), tokenId);
+        _ERC721InteractionStatus = NOT_INTERACTION;
+```
+```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L890-L892
 ```
 
