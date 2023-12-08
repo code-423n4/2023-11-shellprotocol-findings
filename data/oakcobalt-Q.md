@@ -266,3 +266,22 @@ In addition, development will fail due to primitive contract has no decimal meth
 (1) Either develop a different version of Curve2PoolAdapter that work with Curve pool that has a separate LpToken;
 (2) Or revise current Curve2PoolAdapter to always use xToken, yToken and LpToken. And in the constructor, bypass when calling `.token()` method on curve pool fails which indicate it doesn't use a separate LPToken.
 
+### NC-03 OceanAdapter.sol `computOutputAmount()` will not handle the case for erc20->erc721. 
+In Ocean, erc20, erc721 and erc1155 are all supported. Theoretically, inputToken or outputToken can be erc721, erc20 or erc1155, depending the specific external liquidity protocols that OceanAdapter is wrapping. But this is currently not possible, which reduces Ocean's compatibility.
+
+Although OceanAdapter.sol is an abstract contract, it has complete implementation for `computOutputAmount()`. It should be noted that current `computOutputAmount()` might not work when the outputToken needs to be ERC721. For example, depositing liquidity and the external pool mints ERC721 as an lp token. 
+
+This is because when wrap the output token after external add-liquidity call, OceanAdapter will directly use the `outputToken` as input for `wrapToken()`. And `outputToken` will be different from user input, because the minted ERC721 tokenId is determined on the fly by external pool. 
+
+In addition, `primitiveOutputAmount()` only returns one parameter `outputAmount`. In the case when the output Token is ERC721, tokenId will be needed to be wrapped in Ocean.sol.
+
+These makes the erc20->erc721 use case errorneous, unless overwriting the logic of OceanAdapter `computOutputAmount()`. In addition, `computOutputAmount()` will also need to return both `outputToken` and `outputAmount` to be processed in Ocean.sol
+
+I think this is NC severity due to OceanAdpater can be essentially overwritten by the child contract with new logic in `computOutputAmount()` if there is a need later on. Still, it would be better to account for this use case and refactor the code for increased compatibility, readability and avoid extensive overwriting.
+
+**Recommendations:**
+(1) Consider having `primitiveOutputAmount()` return two variables `(outputToken, outputAmount)`. And change `computeOutputAmount()` to pass the two values to `wrapToken()`. 
+(2) Then the logic of handling (a) whether the outputToken requested by user is a ERC721, for example, user put `_calcualteOceanId(externalERC721address, 0)` as a placeholder for ERC721 (b) return outputToken, can be done in `primitiveOutputAmount()`.
+(3) allow OceanAdapter.sol `computeOutputAmount()`to return two variables `(outputToken, outputAmount)`
+(4) In Ocean.sol, `_computeOutputAmount()`, return both `(outputToken, outputAmount)` and pass them to ` _decreaseBalanceOfPrimitive()`. 
+(5) In Ocean.sol, `_computeOutputAmount()` will also return `(outputToken, outputAmount)`, which will be passed to return values in `_executeInteraction()`.
