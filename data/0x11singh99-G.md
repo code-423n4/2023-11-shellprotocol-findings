@@ -2,13 +2,11 @@
 
 | Number                                                                 | Issue                                                    | Instances |
 | ---------------------------------------------------------------------- | :------------------------------------------------------- | :-------: |
-| [[G-01](#g-01-state-variables-can-be-packed-into-fewer-storage-slots)] | `State variables` can be packed into fewer storage slots |     1     |
-| [[G-02](#g-02-use--instead-of--1)]                                     | Use `++` instead of `+= 1`                               |     1     |
-| [[G-03](#g-03-make-variable-outside-of-the-loop)]                      | Make variable outside of the loop                        |     1     |
-| [[G-04](#g-04-dont-cache-any-value-if-it-is-used-only-once)]           | Don't `cache` any value if it is used only once          |     4     |
-| [[G-05](#g-05-check-amount-for-zero-before-transferring)]              | Check `amount` for `zero` before transferring            |     5     |
-| [[G-06](#g-06-use-already-created-constant-value)]                     | Use already `created` constant value                     |     1     |
-| [[G-07](#g-07-use-named-returns-value-in-pure-functions)]              | Use named returns value in `pure` functions              |     4     |
+| [[G-01](#g-01-state-variables-can-be-packed-into-fewer-storage-slots)] | `State variables` can be packed into fewer storage slots |     2     |
+| [[G-02](#g-02-make-variable-outside-of-the-loop)]                      | Make variable outside of the loop                        |     8     |
+| [[G-03](#g-03-dont-cache-any-value-if-it-is-used-only-once)]           | Don't `cache` any value if it is used only once          |     4     |
+| [[G-04](#g-04-check-amount-for-zero-before-transferring)]              | Check `amount` for `zero` before transferring            |     1     |
+| [[G-05](#g-05-use-named-returns-value-in-pure-functions)]              | Use named returns value in `pure` functions              |     4     |
 
 ## [G-01] `State variables` can be packed into fewer storage slots.
 
@@ -20,9 +18,9 @@ SLOAD for that storage slot. This is due to us incurring a Gwarmaccess (100 gas)
 If variables occupying the same slot are both written the same function or by the constructor, avoids a separate Gsset
 (20000 gas). Reads of the variables can also be cheaper
 
-_1 Instances in 1 File_
+_2 Instances in 1 File_
 
-### Reduce uint type for `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` to `uint8` and can be packed together to save 1 SLOT (~2000 Gas)
+### Reduce uint type for `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` to uint8 and can be packed together to save 1 SLOT (~2000 Gas)
 
 Since `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` used only to store 2 constant values `NOT_INTERACTION`
 and `INTERACTION` whose values are **1** and **2** respectively. So `uint8` is more than sufficient to hold value if it
@@ -34,8 +32,8 @@ state variables. So it will save 1 SLOT by reducing the size of `_ERC1155Interac
 File : src/ocean/Ocean.sol
 
 
-108:      uint256 _ERC1155InteractionStatus;
-109:      uint256 _ERC721InteractionStatus;//@audit reduce these to uint8
+108:      uint256 _ERC1155InteractionStatus; //@audit reduce these to uint8
+109:      uint256 _ERC721InteractionStatus; //@audit reduce these to uint8
 
 ```
 
@@ -50,21 +48,11 @@ File : src/ocean/Ocean.sol
 +       uint8 _ERC721InteractionStatus;
 ```
 
-## [G-02] Use `++` instead of `+= 1`
+## [G-02] Make variable outside of the loop
 
-_1 Instance in 1 File_
-
-```diff
-File : src/ocean/Ocean.sol
-
--      transferAmount += 1;
-+      ++transferAmount;
-
-```
-
-[1092](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L1092C13-L1092C33)
-
-## [G-03] Make variable outside of the loop
+Declaring variables outside of a loop can help save gas in Solidity by reducing gas consumption because it prevents
+re-declaration of the variable in each iteration of the loop. When variables are declared outside the loop, the gas cost
+associated with declaration occurs only once, outside the loop's scope.
 
 _8 Instances in 1 File_
 
@@ -135,7 +123,10 @@ File : src/ocean/Ocean.sol
 
 ```
 
-## [G-04] Don't `cache` any value if it is used only once
+## [G-03] Don't `cache` any value if it is used only once
+
+When variable used only once there is no need to cache it. It wastes extra gas of creating stack variable and writing
+value to it.
 
 _4 Instances in 3 Files_
 
@@ -169,58 +160,72 @@ File : src/adapters/OceanAdapter.sol
 
 [71](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/OceanAdapter.sol#L71C9-L71C59)
 
-## [G-05] Check `amount` for `zero` before transferring
+## [G-04] Check `amount` for `zero` before transferring
 
-**Note: These instance missed by bot-report**
-
-_5 Instances in 1 File_
-
-```solidity
-File : src/ocean/Ocean.sol
-
-891:    IERC721(tokenAddress).safeTransferFrom(userAddress, address(this), tokenId); //@audit check tokenId for 0
-
-904:    IERC721(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId); //@audit check tokenId for 0
-
-931:    IERC1155(tokenAddress).safeTransferFrom(userAddress, address(this), tokenId, amount, ""); //@audit check tokenId and amount for 0
-
-968:    IERC1155(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId, amountRemaining, ""); //@audit check tokenId and amountRemaining for 0
-
-982:    payable(userAddress).transfer(transferAmount); //@audit check transferAmount for 0
-
-```
-
-[891](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L891C9-L891C85),
-[904](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L904C9-L904C85),
-[931](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L931C8-L931C98),
-[968](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L968C2-L968C107),
-[982](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L982C8-L982C55)
-
-## [G-06] Use already `created` constant value
+Checking if a value is zero before executing a transfer in Ethereum smart contracts can help prevent unnecessary
+operations and potentially save gas. And transferring zero amount doesn't change anything and waste gas. **Note: These
+instance missed by bot-report**
 
 _1 Instances in 1 File_
 
 ```solidity
 File : src/ocean/Ocean.sol
 
-102:   uint256 constant GET_BALANCE_DELTA = type(uint256).max;
-...
-170:   unwrapFeeDivisor = type(uint256).max;
+982:    payable(userAddress).transfer(transferAmount); //@audit check transferAmount for 0
 
 ```
 
-[170](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L170C8-L170C46),
-[102](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L102C5-L102C60)
+[982](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L982C8-L982C55)
 
-```diff
-File : main/src/ocean/Ocean.sol
+## [G-05] Use named returns value in `pure` functions
 
--     unwrapFeeDivisor = type(uint256).max;
-+     unwrapFeeDivisor = GET_BALANCE_DELTA;
+### Proof of Concept
 
+```solidity
+library NoNamedReturnArithmetic {
+  function sum(uint256 num1, uint256 num2) internal pure returns (uint256) {
+    return num1 + num2;
+  }
+}
+
+contract NoNamedReturn {
+  using NoNamedReturnArithmetic for uint256;
+
+  uint256 public stateVar;
+
+  function add2State(uint256 num) public {
+    stateVar = stateVar.sum(num);
+  }
+}
 ```
 
-## [G-07] Use named returns value in `pure` functions
+```solidity
+test for test/NoNamedReturn.t.sol:NamedReturnTest
+[PASS] test_Increment() (gas: 27639)
+```
+
+```solidity
+library NamedReturnArithmetic {
+  function sum(uint256 num1, uint256 num2) internal pure returns (uint256 theSum) {
+    theSum = num1 + num2;
+  }
+}
+
+contract NamedReturn {
+  using NamedReturnArithmetic for uint256;
+
+  uint256 public stateVar;
+
+  function add2State(uint256 num) public {
+    stateVar = stateVar.sum(num);
+  }
+}
+```
+
+```solidity
+test for test/NamedReturn.t.sol:NamedReturnTest
+[PASS] test_Increment() (gas: 27613)
+```
 
 _4 Instances in 2 Files_
 
@@ -337,3 +342,4 @@ File : src/adapters/OceanAdapter.sol
     }
 
 ```
+
