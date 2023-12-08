@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "KupiaSec",
+  "risk": "2",
+  "title": "Invalid WETH inclusion for Curve's Tricrypto pools.",
+  "issueId": 250,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/250"
+}
