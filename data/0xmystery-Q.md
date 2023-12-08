@@ -46,7 +46,7 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.so
 +            }
 ``` 
 ## [L-03] Dust associated with token decimals over 18 not catered for
-When dealing with an ERC-20 token whose `decimals()` is greater than 18, the portion beyond the 18th decimal place is discarded outright. For instance, when `rawOutputAmount` returned by `Curve2PoolAdapter.primitiveOutputAmount()` for a token with 21 decimals was 123.123456789012345678901, `_convertDecimals()` would be invoked to assign `outputAmount` as `123.123456789012345678` to be wrapped via [`wrapToken()`](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L102-L114), leaving/truncating 0.000000000000000000901.
+When dealing with an ERC-20 token whose `decimals()` is greater than 18, the portion beyond the 18th decimal place is discarded outright. For instance, when `rawOutputAmount` returned by `Curve2PoolAdapter.primitiveOutputAmount()` for a token with 21 decimals was 123.123456789012345678901, `_convertDecimals()` would be invoked to assign `outputAmount` as `123.123456789012345678` to be wrapped via [wrapToken()](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L102-L114), leaving/truncating 0.000000000000000000901.
 
 https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L162-L173
 
@@ -264,6 +264,18 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve
                 ICurve2Pool(primitive).exchange(indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0);
 ```
 However, due to congestion and bot MEV re-ordering, a deFi call transacted a day later would not have an expectedly higher `rawOutputAmount` received simply because a higher `minimumOutputAmount` had not been entered for better slippage protection.  
+
+## [L-10] Excess contract balance not catered for
+Ideally, a well-designed smart contract should not retain excess funds inadvertently. Any excess balance remaining after operations should be accounted for and handled appropriately, either by returning to the user, contributing to the next operation, or managed through specific functions designed for balance withdrawal or reallocation.
+
+For instance, in CurveTricryptoAdapter.sol, ETH could be sent in accidentally via [fallback()](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/CurveTricryptoAdapter.sol#L291). This could render the excess ETH stuck in the contract forever because `primitiveOutputAmount()` handles a balance check that calculates the exact amount of tokens received in the Curve operation. The same shall apply to other token types inadvertently received by the contract. 
+
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/CurveTricryptoAdapter.sol#L223
+
+```solidity
+        uint256 rawOutputAmount = _getBalance(underlying[outputToken]) - _balanceBefore;
+```
+I recommend having a function the owner can make withdraws on the stuck excess funds when needed.
 
 ## [NC-01] Incorrect comments
 `Ocean.forwardedDoInteraction()` is making call to `_doInteraction()` instead of `_doMultipleInteractions()`.
