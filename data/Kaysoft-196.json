@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Kaysoft",
+  "risk": "3",
+  "title": "Replay Attack because EIP712 DOMAIN_SEPARATOR stored as immutable",
+  "issueId": 196,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/196"
+}
