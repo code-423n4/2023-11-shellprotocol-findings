@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "paritomarrr",
+  "risk": "2",
+  "title": "Potential Incorrect Fee Calculation Due to Zero unwrapAmount in _calculateUnwrapFee Function",
+  "issueId": 233,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/233"
+}
