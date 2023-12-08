@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "00xSEV",
+  "risk": "2",
+  "title": "Possible lock of tokens when approval limit is depleted (escalation to Medium)",
+  "issueId": 176,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/176"
+}
