@@ -20,7 +20,7 @@ If variables occupying the same slot are both written the same function or by th
 
 _2 Instances in 1 File_
 
-### Reduce uint type for `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` to uint8 and can be packed together to save 1 SLOT (~2000 Gas)
+### Reduce uint type for `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` to `uint8` and can be packed together to save 1 SLOT (~2000 Gas)
 
 Since `_ERC1155InteractionStatus` and `_ERC721InteractionStatus` used only to store 2 constant values `NOT_INTERACTION`
 and `INTERACTION` whose values are **1** and **2** respectively. So `uint8` is more than sufficient to hold value if it
