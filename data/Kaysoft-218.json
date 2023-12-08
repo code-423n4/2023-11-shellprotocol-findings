@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Kaysoft",
+  "risk": "2",
+  "title": "Ocean.sol is not compliant with ERC165 standard as stated in the contest page",
+  "issueId": 218,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/218"
+}
