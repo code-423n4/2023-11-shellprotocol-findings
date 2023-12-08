@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Topmark",
+  "risk": "3",
+  "title": "ERC721 and ERC1155 Reentrancy Guard is Incomplete and Wrongly Implemented",
+  "issueId": 175,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/175"
+}
