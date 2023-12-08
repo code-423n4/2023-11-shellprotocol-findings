@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "SUPERMAN_I4G",
+  "risk": "2",
+  "title": "Missing onlyOwner Modifier Will Give Access To Any Malicious User To Change UnwrapFee Immediately",
+  "issueId": 241,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/241"
+}
