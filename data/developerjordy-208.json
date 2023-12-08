@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "developerjordy",
+  "risk": "2",
+  "title": "Can sent interaction with more than userBalance, might result in wrong accounting in Ocean protocol",
+  "issueId": 208,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/208"
+}
