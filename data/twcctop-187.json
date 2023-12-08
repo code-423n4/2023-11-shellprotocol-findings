@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "twcctop",
+  "risk": "2",
+  "title": "`_erc20Unwrap`   and  `_erc20Wrap`   input  amount decinals  differ when token  dicimals  <  18",
+  "issueId": 187,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/187"
+}
