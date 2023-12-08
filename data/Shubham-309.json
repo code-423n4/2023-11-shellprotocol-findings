@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Shubham",
+  "risk": "3",
+  "title": "Incorrect token contract address used when calculating WRAPPED_ETHER_ID inside the constructor will break the protocol",
+  "issueId": 309,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/309"
+}
