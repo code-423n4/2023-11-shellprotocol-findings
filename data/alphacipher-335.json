@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "alphacipher",
+  "risk": "2",
+  "title": "Incorrect Condition for Validating Input and Output Tokens in CurveTricryptoAdapter::_determineComputeType Function",
+  "issueId": 335,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/335"
+}
