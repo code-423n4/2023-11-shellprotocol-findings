@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "CRYP70",
+  "risk": "2",
+  "title": "Dust values are accounted for resulting in an amount of tokens with less than 1e18 decimals being lost in the contract",
+  "issueId": 215,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/215"
+}
