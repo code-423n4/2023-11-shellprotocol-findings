@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "fr33rh",
+  "risk": "3",
+  "title": "Wrap an ERC-20 token which have little decimals will cause overflow",
+  "issueId": 165,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/165"
+}
