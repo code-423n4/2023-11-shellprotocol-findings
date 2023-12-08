@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Udsen",
+  "risk": "3",
+  "title": "THE TRUNCATION OCCURED DUE TO DECIMAL CONVERSION IN THE `Curve2PoolAdapter.primitiveOutputAmount` FUNCTION IS IGNORED THUS LEADING TO LOSS OF FUNDS (FEES) TO THE `Ocean` PROTOCOL",
+  "issueId": 294,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/294"
+}
