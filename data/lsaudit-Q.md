@@ -50,7 +50,7 @@ require(nextUnwrapFeeDivisor != unwrapFeeDivisor, "Nothing is being changed!");
 ```
 
 
-# [QA-02] `onERC1155BatchReceived` in `Ocean.sol` is not compliant with EIP-1155
+# [QA-03] `onERC1155BatchReceived` in `Ocean.sol` is not compliant with EIP-1155
 
 Even though the Ocean never initiates ERC1155 Batch Transfers, while devs decided to implement `onERC1155BatchReceived` - it must be compliant with EIP-1155.
 
@@ -70,7 +70,7 @@ The current implementation of `onERC1155BatchReceived()` in `Ocean.sol` always r
 Make sure, that `onERC1155BatchReceived()` returns `IERC1155Receiver.onERC1155BatchReceived.selector` instead of 0. If it returns 0, every transfer which wants to be compliant with EIP-1155 will always revert.
 
 
-# [QA-03] Slippage limit represented as bytes32 may be misleading to the end-user
+# [QA-04] Slippage limit represented as bytes32 may be misleading to the end-user
 
 The slippage protection is represented as `bytes32` and then casted to `uint256`. This behavior may be misleading to the end user who expects to provide the slippage limit as an amount.
 Slippage protects from getting smaller outputAmount than expected. Since `outputAmount` is `uint256`, then slippage protection should also be `uint256`.
