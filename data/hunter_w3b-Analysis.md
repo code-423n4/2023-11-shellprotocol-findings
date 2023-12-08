@@ -45,7 +45,7 @@ they behave as expected.
   comprehensive accounting system; it also incorporates an efficient fee system for unwrapping based on the specified
   fee divisor and supports both direct and forwarded interactions executed on behalf of users by approved forwarders.
 
-  ![Ocean.sol](https://private-user-images.githubusercontent.com/70327041/289004029-da873e7b-fdb1-4fc8-9970-9bbaf0e80cba.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzMDAsIm5iZiI6MTcwMjAyNDAwMCwicGF0aCI6Ii83MDMyNzA0MS8yODkwMDQwMjktZGE4NzNlN2ItZmRiMS00ZmM4LTk5NzAtOWJiYWYwZTgwY2JhLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA4VDA4MjY0MFomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWM5ODVmNTBjMjQyMTE4Zjc2ZDE3Njg0YjhiYTgxZGRlYzM2ZGQ0ZWFjYzM0YTA1MjhmZDNmOTI5OGM0N2U0OGMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.NjzqqcOhR-IQYexQr25uTdhNb1rEQlc5tgQ2NNPMj5o)
+  ![Ocean.sol](https://i.im.ge/2023/12/09/EsSpcG.Ocean.png)
 
 - **Curve2PoolAdapter.sol**: Curve2PoolAdapter.sol contract is an adapter for the Curve Finance 2pool, designed to
   facilitate swapping, adding liquidity, and removing liquidity for the Curve USDC-USDT pool; it includes functions for
@@ -63,7 +63,7 @@ they behave as expected.
   protocol and the Curve Tricrypto pool; the contract also includes functions for wrapping and unwrapping tokens, and it
   implements logic for handling various interactions, emitting events, and enforcing slippage limits.
 
-  ![CurveTricryptoAdapter.sol](https://private-user-images.githubusercontent.com/70327041/289010435-5a9faf26-9a54-4950-a099-16bec442260c.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQ0ODIsIm5iZiI6MTcwMjAyNDE4MiwicGF0aCI6Ii83MDMyNzA0MS8yODkwMTA0MzUtNWE5ZmFmMjYtOWE1NC00OTUwLWEwOTktMTZiZWM0NDIyNjBjLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA4VDA4Mjk0MlomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWMyZDQ1YTEyNjUwMjZlYzk0MTYxZGFkNmNmNTFjMGY3MTIwYmQ4MWZkMzk2ZjUyNGU0OWY5NGY2ZWRhNTQyZGMmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.Oi1mS9SzD8X7lsqTjnR9PdPXNb2sYvzWoFUVmRfqPuw)
+  ![CurveTricryptoAdapter.sol](https://i.im.ge/2023/12/09/EsSnDa.CurveTricryptoAdapter.png)
 
 - **OceanAdapter**: This contract acts as a helper contract for shell adapters in the context of the Ocean protocol,
   providing functionality for wrapping and unwrapping tokens and enabling seamless interaction with external primitives;
@@ -73,7 +73,7 @@ they behave as expected.
   Ocean IDs, fetching interaction IDs, and converting decimals; it enforces onlyOcean modifier to restrict method calls
   to the Ocean protocol and implements ERC1155-related functions for token handling.
 
-  ![OceanAdapter.sol](https://private-user-images.githubusercontent.com/70327041/289010512-1110107c-436e-4089-8351-196236caf7c3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQ0OTcsIm5iZiI6MTcwMjAyNDE5NywicGF0aCI6Ii83MDMyNzA0MS8yODkwMTA1MTItMTExMDEwN2MtNDM2ZS00MDg5LTgzNTEtMTk2MjM2Y2FmN2MzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA4VDA4Mjk1N1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTY3MWI5YjE0MjYwZGM0OTNjODg5OGRkMTYyYWZmZWIyMDljOWEwMDhiYTM0NDY3MDM2N2I2NTk3MzU1OWZhZTAmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.POBMmOD8bh8RR-t_2s2gGrGgV4UFeSIeV1fDSnqDBpg)
+  ![OceanAdapter.sol](https://i.im.ge/2023/12/09/EsdM6z.OceanAdapter.png)
 
 ### Privileged Roles
 
@@ -159,7 +159,7 @@ Accordingly, I analyzed and audited the subject in the following steps;
 
 Architecture of the contracts that are part of the Shell protocol:
 
-![Diagram](https://private-user-images.githubusercontent.com/70327041/289010098-676ae3e0-044d-4022-b5f0-3195873237f3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMjQzODUsIm5iZiI6MTcwMjAyNDA4NSwicGF0aCI6Ii83MDMyNzA0MS8yODkwMTAwOTgtNjc2YWUzZTAtMDQ0ZC00MDIyLWI1ZjAtMzE5NTg3MzIzN2YzLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA4VDA4MjgwNVomWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPWJlYTE4ZTAwNGQ5MDZlNjI3NGI0NzE3YzgzMmYwZmY1Y2E1NDYxMWJiNDRhY2UzYWY0OTY4OTFmZTZjMGU3YTImWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.j__v0p32Pg1UfvPeOun53zX76ZWRIS2AbI9WdbigWD4)
+![Diagram](https://i.im.ge/2023/12/09/EsdQV6.Screenshot-from-2023-12-08-12-32-16.png)
 
 ### Ocean.sol:
 
@@ -202,7 +202,7 @@ Architecture of the contracts that are part of the Shell protocol:
   decimals. Enforces the onlyOcean modifier to restrict method calls to the Ocean protocol. Implements ERC1155-related
   functions for token handling.
 
-![Diagram-1](https://private-user-images.githubusercontent.com/70327041/289062401-326d33ef-166a-49c6-98b3-f26f36cb4e6d.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTEiLCJleHAiOjE3MDIwMzc3MTMsIm5iZiI6MTcwMjAzNzQxMywicGF0aCI6Ii83MDMyNzA0MS8yODkwNjI0MDEtMzI2ZDMzZWYtMTY2YS00OWM2LTk4YjMtZjI2ZjM2Y2I0ZTZkLnBuZz9YLUFtei1BbGdvcml0aG09QVdTNC1ITUFDLVNIQTI1NiZYLUFtei1DcmVkZW50aWFsPUFLSUFJV05KWUFYNENTVkVINTNBJTJGMjAyMzEyMDglMkZ1cy1lYXN0LTElMkZzMyUyRmF3czRfcmVxdWVzdCZYLUFtei1EYXRlPTIwMjMxMjA4VDEyMTAxM1omWC1BbXotRXhwaXJlcz0zMDAmWC1BbXotU2lnbmF0dXJlPTAwZTk0ZmVlNzE3NzU2ZWQ1MWRiNTMyZjZlOGNmYmFmMDU1MTdhZjU2MmYzMTA0MjRmOGFkYTlhZTg4NTdiOGQmWC1BbXotU2lnbmVkSGVhZGVycz1ob3N0JmFjdG9yX2lkPTAma2V5X2lkPTAmcmVwb19pZD0wIn0.AteOFVi7Snp3vTL_xdKYxSL5nZgmvc6z3Z2Frea4TBw)
+![Diagram-1](https://i.im.ge/2023/12/09/EsSRCm.arch1.png)
 
 ### Some potential areas for improvement and Architecture feedback
 
@@ -289,4 +289,4 @@ security and reliability of the project.
 
 
 ### Time spent:
-29 hours
+30 hours
