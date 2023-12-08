@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "CRYP70",
+  "risk": "2",
+  "title": "Using ETH in doMultipleTransactions will cause the transaction to revert even though it is payable",
+  "issueId": 216,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/216"
+}
