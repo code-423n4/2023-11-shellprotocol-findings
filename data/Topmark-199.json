@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Topmark",
+  "risk": "2",
+  "title": "Missing Fallback Function in Curve2PoolAdapter Smart Contract",
+  "issueId": 199,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/199"
+}
