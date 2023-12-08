@@ -93,3 +93,15 @@ Just delete this line of code in `function _erc20Wrap`.
 ```
             _grantFeeToOcean(outputToken, dust);
 ```
+### solution B 
+Delete the `function _determineTransferAmount`,and rewrite `function _erc20Wrap`: 
+```
+    function _erc20Wrap(address tokenAddress, uint256 amount, address userAddress, uint256 outputToken) private {
+        try IERC20Metadata(tokenAddress).decimals() returns (uint8 decimals) {
+            (uint256 transferAmount, ) =_convertDecimals(NORMALIZED_DECIMALS, decimals, amount);
+            SafeERC20.safeTransferFrom(IERC20(tokenAddress), userAddress, address(this), transferAmount);
+        } catch {
+            revert NO_DECIMAL_METHOD();
+        }
+    }
+```
