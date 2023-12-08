@@ -155,8 +155,8 @@ Check convertDecimals (Wrapping) via determineTransferAmount
 - normalizedTransferAmount = 1e16, normalizedTruncatedAmount = 0
 - Line 1100, normalizedTruncatedAmount is asserted to 0
 - normalizedTransferAmount, 1e16 > 1e15.
-- dust = 1e16 - 1e15 = 10
-- transferAmount = 1, dust = 10
+- dust = 1e16 - 1e15 = 9e15
+- transferAmount = 1, dust = 9e15
 - Issue with low decimals and low shToken mint amount?
 
 5. From 18 decimals to 6 decimals (try to get dust > 0, from the example)
@@ -309,6 +309,8 @@ A9: There's a onERC1155Receive callback when minting shTokens in `_doSafeTransfe
 ### Centralization Issues
 
 - Not much centralization issues. Ledger is extremely decentralized. Owner only has control over the fees, but there is a maximum fee charge
+
+
 
 
 
