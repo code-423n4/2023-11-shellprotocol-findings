@@ -137,3 +137,12 @@ See Ocean#computeOutputAmount
 
 To fix this, refactor primitive to adapter
 
+7.
+
+The bytes parameter in the IERC1155 safeTransferFrom call serves an important purpose - it allows additional data or information to be passed along with the token transfer.
+
+```solidity
+IERC1155(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId, amountRemaining, "");
+```
+
+In the provided snippet, an empty byte string is passed since no data is needed. But having the bytes parameter creates the flexibility to add data if required later for that token and dapp system.
