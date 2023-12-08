@@ -46,32 +46,84 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.so
 +            }
 ``` 
 ## [L-03] Dust associated with token decimals over 18 not catered for
-When unwrapping an ERC-20 token whose `decimals()` is greater than 18, the portion beyond the 18th decimal place is discarded outright. For instance, the amount for a token with 21 decimals will be unwrapped as 123.123456789012345678 when the actual amount could have been 123.123456789012345678901, leaving/truncating 0.000000000000000000901.
+When dealing with an ERC-20 token whose `decimals()` is greater than 18, the portion beyond the 18th decimal place is discarded outright. For instance, when `rawOutputAmount` returned by `Curve2PoolAdapter.primitiveOutputAmount()` for a token with 21 decimals was 123.123456789012345678901, `_convertDecimals()` would be invoked to assign `outputAmount` as `123.123456789012345678` to be wrapped via [`wrapToken()`](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L102-L114), leaving/truncating 0.000000000000000000901.
 
-https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L864-L880
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L162-L173
 
 ```solidity
-    function _erc20Unwrap(address tokenAddress, uint256 amount, address userAddress, uint256 inputToken) private {
-        try IERC20Metadata(tokenAddress).decimals() returns (uint8 decimals) {
-            uint256 feeCharged = _calculateUnwrapFee(amount);
-            uint256 amountRemaining = amount - feeCharged;
-
-            (uint256 transferAmount, uint256 truncated) =
-                _convertDecimals(NORMALIZED_DECIMALS, decimals, amountRemaining);
-            feeCharged += truncated;
-
-            _grantFeeToOcean(inputToken, feeCharged);
-
-            SafeERC20.safeTransfer(IERC20(tokenAddress), userAddress, transferAmount);
-            emit Erc20Unwrap(tokenAddress, transferAmount, amount, feeCharged, userAddress, inputToken);
-        } catch {
-            revert NO_DECIMAL_METHOD();
+        if (action == ComputeType.Swap) {
+            rawOutputAmount =
+                ICurve2Pool(primitive).exchange(indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0);
+        } else if (action == ComputeType.Deposit) {
+            uint256[2] memory inputAmounts;
+            inputAmounts[uint256(int256(indexOfInputAmount))] = rawInputAmount;
+            rawOutputAmount = ICurve2Pool(primitive).add_liquidity(inputAmounts, 0);
+        } else {
+            rawOutputAmount = ICurve2Pool(primitive).remove_liquidity_one_coin(rawInputAmount, indexOfOutputAmount, 0);
         }
-    }
-```
-I recommend saving/adding the truncated amount to the caller since the the DAO's balance of a token in an 18 decimal representation won't be getting it.  
 
-## [L-04] USDT might turn into a fee-on-transfer token
+        outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, rawOutputAmount);
+```
+I recommend adding a function that could be used to withdraw the accumulated truncated amount by the owner when it has become sizable enough to be transferable rather than leaving it stuck forever in the contract.  
+
+## [L-04] Slippage could have been detected earlier
+`Curve2PoolAdapter.primitiveOutputAmount()` and `CurveTricryptoAdapter.primitiveOutputAmount()` both have `0` slippage adopted by default when doing deposit, swap or withdraw, and doing the slippage check only after the `rawOutputAmount` has been converted to the 18 decimal format.  
+
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L162-L175
+
+```solidity
+        if (action == ComputeType.Swap) {
+            rawOutputAmount =
+                ICurve2Pool(primitive).exchange(indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0);
+        } else if (action == ComputeType.Deposit) {
+            uint256[2] memory inputAmounts;
+            inputAmounts[uint256(int256(indexOfInputAmount))] = rawInputAmount;
+            rawOutputAmount = ICurve2Pool(primitive).add_liquidity(inputAmounts, 0);
+        } else {
+            rawOutputAmount = ICurve2Pool(primitive).remove_liquidity_one_coin(rawInputAmount, indexOfOutputAmount, 0);
+        }
+
+        outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, rawOutputAmount);
+
+        if (uint256(minimumOutputAmount) > outputAmount) revert SLIPPAGE_LIMIT_EXCEEDED();
+```
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/CurveTricryptoAdapter.sol#L198-L227
+
+```solidity
+        if (action == ComputeType.Swap) {
+            bool useEth = inputToken == zToken || outputToken == zToken;
+
+            ICurveTricrypto(primitive).exchange{ value: inputToken == zToken ? rawInputAmount : 0 }(
+                indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0, useEth
+            );
+        } else if (action == ComputeType.Deposit) {
+            uint256[3] memory inputAmounts;
+            inputAmounts[indexOfInputAmount] = rawInputAmount;
+
+            if (inputToken == zToken) IWETH(underlying[zToken]).deposit{ value: rawInputAmount }();
+
+            ICurveTricrypto(primitive).add_liquidity(inputAmounts, 0);
+        } else {
+            if (outputToken == zToken) {
+                uint256 wethBalance = IERC20Metadata(underlying[zToken]).balanceOf(address(this));
+                ICurveTricrypto(primitive).remove_liquidity_one_coin(rawInputAmount, indexOfOutputAmount, 0);
+                IWETH(underlying[zToken]).withdraw(
+                    IERC20Metadata(underlying[zToken]).balanceOf(address(this)) - wethBalance
+                );
+            } else {
+                ICurveTricrypto(primitive).remove_liquidity_one_coin(rawInputAmount, indexOfOutputAmount, 0);
+            }
+        }
+
+        uint256 rawOutputAmount = _getBalance(underlying[outputToken]) - _balanceBefore;
+
+        outputAmount = _convertDecimals(decimals[outputToken], NORMALIZED_DECIMALS, rawOutputAmount);
+
+        if (uint256(minimumOutputAmount) > outputAmount) revert SLIPPAGE_LIMIT_EXCEEDED();
+```
+I recommend converting `minimumOutputAmount` to the supposed token decimal format (just like it has been done so on `inputAmount`) via `_convertDecimals()` (round it up if need be), and then using the converted slippage amount instead of `0` when calling `exchange()`, `add_liquidity()` or `remove_liquidity_one_coin()`.  
+
+## [L-05] USDT might turn into a fee-on-transfer token
 According to the contract NatSpec of Curve2PoolAdapter.sol, the adapter is enabling deposit, swap, and withdraw on the USDC-USDT pair on curve: 
 
 https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L16-L19
@@ -86,7 +138,7 @@ Nevertheless, USDT can activate fees and become a fee-on-transfer token, breakin
 
 I recommend planning for this contingency by having a graceful primitive exit/cease route from the Ocean. 
 
-## [L-05] Function arguments not efficiently used
+## [L-06] Function arguments not efficiently used
 When deploying Curve2PoolAdapter.sol and CurveTricryptoAdapter.sol, the inputted parameter `primitive_` could have been fully utilized instead of resorting to the immutable `primitive`.
 
 I recommend refactoring the affected codes as follows:
@@ -151,7 +203,7 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve
         _approveToken(lpTokenAddress);
     }
 ```
-## [L-06] Ineffective CEI adapted from OpenZeppelin Reentrancy Guard
+## [L-07] Ineffective CEI adapted from OpenZeppelin Reentrancy Guard
 In Ocean.sol, sandwiching the function logic of `_erc721Wrap()` and `_erc1155Wrap()` with `NOT_INTERACTION` and `INTERACTION` is essentially not doing much as far as reentrancy guard is concerned in the absence of any conditional or modifier check(s):
 
 https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.sol#L889-L894
@@ -183,7 +235,7 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.so
         emit Erc1155Wrap(tokenAddress, tokenId, amount, userAddress, oceanId);
     }  
 ```
-## [L-07] Private function with embedded modifier reduces contract size
+## [L-08] Private function with embedded modifier reduces contract size
 Consider having the logic of a modifier embedded through a private function to reduce contract size if need be. A `private` visibility that saves more gas on function calls than the `internal` visibility is adopted because the modifier will only be making this call inside the contract.
 
 For instance, the modifier inside the big Ocean contract may be refactored as follows:
@@ -201,6 +253,18 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/ocean/Ocean.so
       _;
       }
 ```
+## [L-09] Optional `deadline` parameter for `primitiveOutputAmount()`
+This is unlikely to happen on Arbitrum or any other L2 chain, but, should the protocol plan on making the Ocean-Primitive interactions on the Ethereum mainnet, a `deadline` option could further protect callers from changes beyond the mitigation capability offered by the slippage. For instance, swapping USDC for USDT a day later would be getting a higher `rawOutputAmount`. 
+
+https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L162-L164
+
+```solidity
+        if (action == ComputeType.Swap) {
+            rawOutputAmount =
+                ICurve2Pool(primitive).exchange(indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0);
+```
+However, due to congestion and bot MEV re-ordering, a deFi call transacted a day later would not have an expectedly higher `rawOutputAmount` received simply because a higher `minimumOutputAmount` had not been entered for better slippage protection.  
+
 ## [NC-01] Incorrect comments
 `Ocean.forwardedDoInteraction()` is making call to `_doInteraction()` instead of `_doMultipleInteractions()`.
 
