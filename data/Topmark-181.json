@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Topmark",
+  "risk": "3",
+  "title": "OverInflation or OverDeflation of Value of ERC20 tokens with unequal Wrap and Unwrap Token Decimal",
+  "issueId": 181,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/181"
+}
