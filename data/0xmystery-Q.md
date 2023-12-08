@@ -277,6 +277,13 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve
 ```
 I recommend having a function the owner can make withdraws on the stuck excess funds when needed.
 
+## [L-11] Risk assessment and mitigation strategies for WBTC depeg
+The potential depegging of WBTC (Wrapped Bitcoin) from Bitcoin poses a risk in the DeFi ecosystem, as evidenced by past instances like the November 2021 event linked to the FTX collapse, with its price deviating from its native asset, Bitcoin. This was primarily attributed to the activities and financial troubles of significant holders like Alameda Research, and other related factors contributing to market uncertainty and fear. During this period, market data indicated an 8.82% decrease in WBTC supply and a trading discount of 1.3% compared to Bitcoin. Such events raise concerns about the stability of wrapped assets and their reliance on the credibility of issuers like BitGo 
+
+["Analyzing the WBTC FUD after the FTX collapse and its depeg"](https://cryptonews.net/news/bitcoin/17498467/)
+
+To mitigate this, it's recommended to regularly refactor and audit smart contract code, implement dynamic slippage adjustments, improve oracles for accurate price feeds, monitor liquidity pool health, develop circuit breakers and emergency protocols, educate the community about risks, encourage diversification in portfolios, and enhance governance mechanisms in DeFi platforms. These steps are crucial for managing risks associated with the depegging of wrapped assets like WBTC and maintaining stability in the DeFi market.
+
 ## [NC-01] Incorrect comments
 `Ocean.forwardedDoInteraction()` is making call to `_doInteraction()` instead of `_doMultipleInteractions()`.
 
