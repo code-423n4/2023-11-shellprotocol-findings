@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Weed0607",
+  "risk": "2",
+  "title": "When InteractionType is ComputeOutputAmount, users have to have the fee twice and this will lead to loss of user fund",
+  "issueId": 192,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/192"
+}
