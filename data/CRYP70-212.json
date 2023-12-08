@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "CRYP70",
+  "risk": "2",
+  "title": "Payable keyword may revert due to a strict gas stipend of 23,000 units",
+  "issueId": 212,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/212"
+}
