@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "`Ocean.supportsInterface` LACKS SUPPORT FOR THE `IERC721Receiver` INTERFACE THUS LIMIITING THE OPERATIONS OF `_erc721Wrap` AND `_erc721Unwrap` FUNCTIONS AND BREAKING THE EXPECTED BEHAVIOUR OF THE PROTOCOL",
+  "issueId": 271,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/271"
+}
