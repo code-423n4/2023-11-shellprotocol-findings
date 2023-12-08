@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "SUPERMAN_I4G",
+  "risk": "2",
+  "title": "WrapErc721 Interaction Will Almost Never Execute If BalanceDelta Returns Negative",
+  "issueId": 282,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/282"
+}
