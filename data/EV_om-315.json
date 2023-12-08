@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "EV_om",
+  "risk": "2",
+  "title": "Limited functionality due to Primitive's balance being decreased before it is called",
+  "issueId": 315,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/315"
+}
