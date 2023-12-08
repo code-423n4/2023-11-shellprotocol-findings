@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Tumelo_Crypto",
+  "risk": "3",
+  "title": "Incorrect indexing in constructor of Curve Adapters causes both contracts to assume xToken and lpToken to be the same token",
+  "issueId": 308,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/308"
+}
