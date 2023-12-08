@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "pep7siup",
+  "risk": "2",
+  "title": "Curve2PoolAdapter & CurveTricryptoAdapter - Potential Fund Loss Due to Reversion on Curve Pool Withdrawal",
+  "issueId": 247,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/247"
+}
