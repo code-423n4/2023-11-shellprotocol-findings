@@ -40,10 +40,10 @@ https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf
     }
 ```
 
-As the param `amount` is "amount of the ERC-20 token to be wrapped, in terms of
+The param `amount` is "amount of the ERC-20 token to be wrapped, in terms of
 18-decimal fixed point ", 
-for example, to wrap 5.01234567890123456789 units of token A, which has 20 decimals, and 5.01 units of token B, which has 2 decimals, the user would specify
-`5.0123456789012345678 * 10**18` for token A ,and `5.01 * 10**18` for token B.
+for example, to wrap 5.12345678901234567890 units of token A, which has 20 decimals, and 5.12 units of token B, which has 2 decimals, the user would specify
+`5.123456789012345678 * 10**18` for token A ,and `5.12 * 10**18` for token B.
 So the value of `truncated` has been always 0 when wrap an erc20 token, resulting in the value of `dust` also being alway 0.
 
 ```
