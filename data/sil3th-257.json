@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "sil3th",
+  "risk": "2",
+  "title": "Unwrapping function emits event with incorrect values.",
+  "issueId": 257,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/257"
+}
