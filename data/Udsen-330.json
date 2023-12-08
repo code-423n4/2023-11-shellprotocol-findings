@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "REDUNDANT ERC1155 OCEAN TOKEN BALANCE UPDATE OF THE `OceanAdapter` CONTRACT COULD LEAD TO DoS OF THE `Ocean._computeOutputAmount` TRANSACTION",
+  "issueId": 330,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/330"
+}
