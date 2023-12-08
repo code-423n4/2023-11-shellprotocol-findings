@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "The Ocean Ledger assumes that all ERC721 tokens are the same in a given collection",
+  "issueId": 205,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/205"
+}
