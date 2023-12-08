@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "bakwas",
+  "risk": "2",
+  "title": "Potential Gas and Overflow Issues with Decimal Shift Left in _convertDecimals Function",
+  "issueId": 316,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/316"
+}
