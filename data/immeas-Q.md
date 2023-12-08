@@ -8,6 +8,7 @@
 | [L-01](#l-02-dust-from-18-decimal-tokens-will-collect-in-curve-pool-adapters)| Dust from >18 decimal tokens will collect in Curve pool adapters |
 | [NC-01](#nc-01-erroneous-commment) | Erroneous commment |
 | [NC-02](#nc-02-inconsistent-use-of-primitiveprimitive_-in-curve2pooladapter-constructor) | Inconsistent use of `primitive`/`primitive_` in `Curve2PoolAdapter` constructor |
+| [NC-03](#nc-03-variables-not-used-in-every-branch) | Variables not used in every branch |
 
 ## Low
 
@@ -114,3 +115,35 @@ File: src/adapters/Curve2PoolAdapter.sol
 ```
 
 Consider just using one of them, `primitive` (no underscore) seems the more used one, since it's also used in the constructor of `CurveTricryptoAdapter`
+
+### NC-03 Variables not used in every branch
+
+In `primitiveOutputAmount` for both `Curve2PoolAdapter` and `CurveTricryptoAdapter` the two variables `indexOfInputAmount` and `indexOfOutputAmount` are loaded before they are used:
+
+[`Curve2PoolAdapter::primitiveOutputAmount`](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L159-L160):
+```solidity
+File: src/adapters/Curve2PoolAdapter.sol
+
+159:        int128 indexOfInputAmount = indexOf[inputToken];
+160:        int128 indexOfOutputAmount = indexOf[outputToken];
+```
+
+However, both are not used in any of the following branches:
+[`Curve2PoolAdapter::primitiveOutputAmount`](https://github.com/code-423n4/2023-11-shellprotocol/blob/main/src/adapters/Curve2PoolAdapter.sol#L162-L171):
+```solidity
+
+162:        if (action == ComputeType.Swap) {
+163:            rawOutputAmount =
+164:                ICurve2Pool(primitive).exchange(indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0);
+165:        } else if (action == ComputeType.Deposit) {
+166:            uint256[2] memory inputAmounts;
+167:            inputAmounts[uint256(int256(indexOfInputAmount))] = rawInputAmount;
+168:            rawOutputAmount = ICurve2Pool(primitive).add_liquidity(inputAmounts, 0);
+169:        } else {
+170:            rawOutputAmount = ICurve2Pool(primitive).remove_liquidity_one_coin(rawInputAmount, indexOfOutputAmount, 0);
+171:        }
+```
+
+Here you can see, different combinations of `indexOfInputAmount` and `indexOfOutputAmount` are used in different branches. But declaring them where they are declaed hints that both would be used in all branches which is not the case. Loading them like this also increases gas cost for branches where only one of them is used.
+
+Consider reading and declaring only the necessary field when it is used.
