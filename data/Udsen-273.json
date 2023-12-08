@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "Udsen",
+  "risk": "2",
+  "title": "THE `OceanAdapter` CONTRACT CAN RECEIVE THE ERC1155 TOKENS BUT CAN NOT BE WITHDRAWN SINCE THERE IS NO APPROVAL FOR TOKEN TRANSFER THUS LOCKING THE TOKENS IN THE `Curve2PoolAdapter` CHILD CONTRACT",
+  "issueId": 273,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/273"
+}
