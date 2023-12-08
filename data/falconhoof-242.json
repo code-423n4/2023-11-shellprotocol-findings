@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "falconhoof",
+  "risk": "3",
+  "title": "Should not rely solely on user provided slippage parameter",
+  "issueId": 242,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/242"
+}
