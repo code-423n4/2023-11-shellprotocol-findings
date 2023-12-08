@@ -71,3 +71,34 @@ the protocol implicitly implies a 1:1 ratio, however real prices of WETH to ETH 
 
 ```
 The transfer could fail and as its result is not being verified, the unwrap will not succeed and the user will lose all of the token. Consider adding a require statement to check for transfer success.
+5. WETH might not be received when swapping liquidity in the tricrypto
+
+Curve tricrypto pool conducts transactions with WETH and unless the `useEth` is explicitly set to `True`. Otherwise, it will default to `False` 
+```
+def exchange(i: uint256, j: uint256, dx: uint256, min_dy: uint256, use_eth: bool = False) -> uint256:
+    assert not self.is_killed  # dev: the pool is killed
+    assert i != j  # dev: coin index out of range
+    assert i < N_COINS  # dev: coin index out of range
+    assert j < N_COINS  # dev: coin index out of range
+    assert dx > 0  # dev: do not exchange 0 coins
+
+    A_gamma: uint256[2] = self._A_gamma()
+    xp: uint256[N_COINS] = self.balances
+    ix: uint256 = j
+    p: uint256 = 0
+    dy: uint256 = 0
+```
+
+
+The `CurveTricryptoAdapter` function swaps tokens and weth using the exchange function in the tricrypto primitive and in doing this sets the `useEth` parameter to true. That is, the tricrypto swap transaction uses `ETH` instead of the protocol's own `WETH`, this is unnecessary as the tricrypto pool will have to unwrap the protcol's `WETH` to `ETH` before performming the swaps. In a case when the outputToken is the zToken, i.e user should recieve `WETH`, the returned token from the swap is `ETH` and not `WETH` as required by the protocol. 
+      
+      ```
+        if (action == ComputeType.Swap) {
+            bool useEth = inputToken == zToken || outputToken == zToken;
+
+            ICurveTricrypto(primitive).exchange{ value: inputToken == zToken ? rawInputAmount : 0 }(
+                indexOfInputAmount, indexOfOutputAmount, rawInputAmount, 0, useEth //@note potocol uses weth
+            );
+            ```
+
+
