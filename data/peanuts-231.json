@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "The else keyword is missing in _doMultipleInteractions",
+  "issueId": 231,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/231"
+}
