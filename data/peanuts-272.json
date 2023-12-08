@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "peanuts",
+  "risk": "2",
+  "title": "Extreme edge case error results in user paying more fees than usual when user decides to mint little shTokens with low decimals tokens",
+  "issueId": 272,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/272"
+}
