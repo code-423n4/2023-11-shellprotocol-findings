@@ -147,7 +147,9 @@ IERC1155(tokenAddress).safeTransferFrom(address(this), userAddress, tokenId, amo
 
 In the provided snippet, an empty byte string is passed since no data is needed. But having the bytes parameter creates the flexibility to add data if required later for that token and dapp system.
 
-8. Bad variable names
+8. 
+
+Bad variable names
 ```
         int128 indexOfInputAmount = indexOf[inputToken];
         int128 indexOfOutputAmount = indexOf[outputToken];
@@ -159,3 +161,19 @@ should be
 ```
 https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/Curve2PoolAdapter.sol#L159-L160
 https://github.com/code-423n4/2023-11-shellprotocol/blob/485de7383cdf88284ee6bcf2926fb7c19e9fb257/src/adapters/CurveTricryptoAdapter.sol#L195-L196
+
+9.
+
+The CurveTricryptoAdapter contract currently implements a fallback function to receive ether:
+
+```solidity
+fallback() external payable { }
+```
+
+This allows ether to be sent from either the Ocean protocol or the Curve Finance protocol when interacting with the adapter.
+
+However, the unrestricted nature of this fallback function makes it possible for arbitrary users to send ether to the adapter contract, where it could become stuck
+
+To fix this,
+
+Restrict the fallback function to only allow ether transfers from the expected Ocean and Curve Finance sources. This would prevent unexpected or malicious locking of ether in the adapter contract, while preserving needed functionality for Ocean and Curve interactions.
