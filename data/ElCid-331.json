@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "ElCid",
+  "risk": "2",
+  "title": "Some ERC20 tokens will send user balance when `amount = type(uint256).max `",
+  "issueId": 331,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/331"
+}
