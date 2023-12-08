@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "twcctop",
+  "risk": "3",
+  "title": "` _determineTransferAmount`  does't support low decimal tokens.",
+  "issueId": 183,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/183"
+}
