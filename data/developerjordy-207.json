@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "developerjordy",
+  "risk": "3",
+  "title": "CurveTricryptAdapter::primitiveOutputAmount & Curve2PoolAdapter::primitiveOutputAmount can swap without slippage tolerance",
+  "issueId": 207,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/207"
+}
