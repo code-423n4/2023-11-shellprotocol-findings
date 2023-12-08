@@ -1,0 +1,8 @@
+{
+  "contest": 308,
+  "handle": "zzzitron",
+  "risk": "3",
+  "title": "Ocean: ERC20 tokens with fallback functions can be stolen",
+  "issueId": 197,
+  "issueUrl": "https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/197"
+}
