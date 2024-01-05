@@ -1285,7 +1285,7 @@ File   |  % Stmts | % Branch |  % Funcs |  % Lines |Uncovered Lines |
 
 The Ocean contract, as provided, is a comprehensive Solidity contract designed for DeFi applications, primarily focusing on the management and interaction of various token standards
 
-![Diagram](https://gist.github.com/assets/58845085/2d6f8b65-945a-4360-8020-4e99864ace34.png)
+*Note: For the provided diagram image, please see the original submission [here](https://github.com/code-423n4/2023-11-shellprotocol-findings/issues/304).*
 
 ### Core Functionalities
 
